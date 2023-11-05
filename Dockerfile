@@ -19,5 +19,5 @@ RUN set -ex; \
           roundcube/carddav \
           kitist/html5_notifier \
           roundcube/carddav \
-          roundcube/customizri # \
+          roundcube/customizr # \
           # kolab/calendar
