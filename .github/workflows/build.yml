@@ -3,12 +3,12 @@ name: Build and Publish
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   push_to_registry:
     name: Push Docker image to Docker Hub
-    environment: master
+    environment: main
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
