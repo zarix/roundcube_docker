@@ -1,0 +1,36 @@
+version: "3"
+services:
+
+  roundcube:
+    image: zarix/roundcube:latest
+    # build:
+    #   context: .
+    # volumes:
+    #   - ./config.custom.php:/var/roundcube/config/config.custom.php
+    environment:
+      - ROUNDCUBEMAIL_DEFAULT_HOST=tls://mail
+      - ROUNDCUBEMAIL_DEFAULT_PORT=143
+      - ROUNDCUBEMAIL_SMTP_SERVER=tls://mail
+      - ROUNDCUBEMAIL_SMTP_PORT=25
+      - ROUNDCUBEMAIL_PLUGINS=archive,html5_notifier,thunderbird_labels,zipdownload,managesieve,carddav,customizr
+      - ROUNDCUBEMAIL_DB_TYPE=mysql
+      - ROUNDCUBEMAIL_DB_HOST=roundcube_db
+      - ROUNDCUBEMAIL_DB_PORT=3306
+      - ROUNDCUBEMAIL_DB_USER=roundcube
+      - ROUNDCUBEMAIL_DB_PASSWORD=roundcube
+      - ROUNDCUBEMAIL_DB_NAME=roundcube
+    ports:
+      - 80:80
+    depends_on:
+      - roundcube_db"
+      
+  roundcube_db:
+    image: mysql
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=roundcube
+      - MYSQL_USER=roundcube
+      - MYSQL_PASSWORD=roundcube
+      - MYSQL_DATABASE=roundcube
+    volumes:
+      - ./roundcube/mysql:/var/lib/mysql
